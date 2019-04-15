@@ -14,6 +14,17 @@ function curry (fn) {
   return currying
 }
 
+function curry2 (fn, ...args) {
+  return function () {
+    const rest = [...args, ...arguments]
+    if (fn.length > rest.length) {
+      return curry2.call(this, fn, ...rest)
+    } else {
+      fn.apply(this, rest)
+    }
+  }
+}
+
 // test
 function add (a, b, c) {
   return a + b + c
